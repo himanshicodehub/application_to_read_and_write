@@ -1,0 +1,56 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+void writeToFile(const string& filename) {
+    ofstream fileOut(filename); // default ios::out mode overwrites file
+    if (!fileOut) {
+        cerr << "Error opening file for writing!" << endl;
+        return;
+    }
+
+    fileOut << "Hello! This is a file-handling demo.\n";
+    fileOut << "We are writing this text to the file.\n";
+    fileOut.close();
+    cout << "✅ Data written successfully.\n";
+}
+
+void readFromFile(const string& filename) {
+    ifstream fileIn(filename);
+    if (!fileIn) {
+        cerr << "Error opening file for reading!" << endl;
+        return;
+    }
+
+    string line;
+    cout << "\n📄 File contents:\n";
+    while (getline(fileIn, line)) {
+        cout << line << endl;
+    }
+    fileIn.close();
+}
+
+void appendToFile(const string& filename) {
+    ofstream fileOut(filename, ios::app); // open in append mode
+    if (!fileOut) {
+        cerr << "Error opening file for appending!" << endl;
+        return;
+    }
+
+    fileOut << "This line is appended to the file.\n";
+    fileOut.close();
+    cout << "➕ Data appended successfully.\n";
+}
+
+int main() {
+    string filename = "sample.txt";
+
+    cout << "=== C++ File Handling Application ===\n";
+
+    writeToFile(filename);
+    appendToFile(filename);
+    readFromFile(filename);
+
+    return 0;
+}
